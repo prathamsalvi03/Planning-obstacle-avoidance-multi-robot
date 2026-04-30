@@ -6,16 +6,10 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/apartment_structure/protos/Door.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/GlossyPaint.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/obstacles/protos/OilBarrel.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/robotis/darwin-op/protos/Darwin-op.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/sony/aibo/protos/AiboErs7.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/pipes/protos/LJoint.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/tools/protos/Wrench.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/tools/protos/Hammer.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/pallet/protos/WoodenPallet.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/tables/protos/Table.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/CardboardBox.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/tools/protos/PaintBucket.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/tools/protos/Screwdriver.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/WoodenBox.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/valves/protos/LeverValve.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/valves/protos/LargeValve.proto"
@@ -32,8 +26,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.43301086665705857 0.2738687556836085 -0.8587767428250574 2.909986380373916
-  position 6.180803346365881 -1.1113825104841246 5.805677080085034
+  orientation 0.3462145072796525 0.2874270029228863 -0.8930404430594814 2.7569673321924
+  position 14.388878902493389 1.684840120293523 13.160952642719053
 }
 TexturedBackground {
   texture "empty_office"
@@ -106,16 +100,6 @@ Floor {
     metalness 0
   }
 }
-Darwin-op {
-  translation -0.184108 -4.90072 0.820325
-  rotation -0.6222989795058281 0.45366398505948424 -0.6379129789916121 -2.247155307179586
-  controller "<generic>"
-}
-AiboErs7 {
-  translation 1.1565273 -4.9369095 0.82215018
-  rotation -0.26735092200225136 0.7698527754008746 -0.5795258309274203 2.679
-  controller "<generic>"
-}
 LJoint {
   translation -7.571 3.19 0.712
   rotation 0 0 1 -1.5708
@@ -134,34 +118,13 @@ Wrench {
   translation 0.8606647 -4.6966955 0.74
   rotation 0 0 1 -2.565635307179586
 }
-Hammer {
-  translation -0.807916 -4.68048 0.754
-  rotation 0 0 1 -2.094395307179586
-  name "hammer(1)"
-}
-Hammer {
-  translation 1.5252822 -4.8882693 0.754
-  rotation 0 0 1 2.35619
-}
 WoodenPallet {
   translation -3.05 -12.1 0.52
   rotation 0.44721372362178063 0.44721372362178063 0.7745965212991105 -1.82348
 }
-Table {
-  translation -0.23882837 -4.8402928 0
-  size 4.5 1.5 0.74
-}
 CardboardBox {
   translation 5.9825 -11.8077 0.31
   rotation 0 0 1 -1.5707963267948966
-}
-PaintBucket {
-  translation -0.72150306 -5.1778419 0.74
-  rotation 0 0 1 1.0472
-}
-Screwdriver {
-  translation -0.054863304 -5.1915357 0.752
-  rotation 0.37796390461552926 0.6546538347889604 0.6546538347889604 2.41886
 }
 WoodenBox {
   translation -4.83091 -8.2975 0.3
@@ -466,9 +429,21 @@ StraightStairs {
     }
   ]
 }
-TurtleBot3Burger {
+DEF Robot_1 TurtleBot3Burger {
   translation 0 -2.17 0
   rotation 0 0 1 0
+  name "Robot_1"
+  controller "planner_rrt"
+  controllerArgs [
+    ""
+  ]
+  supervisor TRUE
+  synchronization FALSE
+}
+DEF Robot_2 TurtleBot3Burger {
+  translation 0 -8.32 0
+  rotation 0 0 1 0
+  name "Robot_2"
   controller "planner_rrt"
   controllerArgs [
     ""
