@@ -256,7 +256,7 @@ def run_robot():
     if name == "Robot_1":
         goal = [-7.0, -10.5]   # bottom-left
     else:
-        goal = [7.0, -0.5]     # top-right
+        goal = [-7.0, -10.5]     # top-right
 
     print(f"[INIT] Goal:  ({goal[0]:.1f}, {goal[1]:.1f})")
 
@@ -274,7 +274,7 @@ def run_robot():
     # ═══════════════════════════════════════════════════════════════════
     print(f"\n[PHASE 1] SCANNING — {name} stationary for 5 seconds...")
     scan_and_map(robot, robot_node, lidar, planner,
-                 duration_ms=5000, timestep=timestep, plan_per_step=15)
+                 duration_ms=5000, timestep=timestep, plan_per_step=50)
 
     print(f"[PHASE 1] DONE — obs={len(planner.obstacles)} "
           f"nodes={len(planner.nodes)} "
