@@ -9,16 +9,6 @@ sys.path.append(os.path.join(os.environ['WEBOTS_HOME'], 'lib/controller/python')
 from controller import Supervisor
 import matplotlib.pyplot as plt
 
-import time
-
-# Metrics initialization
-start_time_total = time.time()
-path_lengths = []
-planning_times = []
-safety_violations = 0
-total_distance = 0
-# prev_meteric_pos = np.array(actual_start)
-
 
 # ═══════════════════════════════════════════════════════════════════════════════
 # WORLD KNOWLEDGE — extracted from Planning.wbt
@@ -116,26 +106,6 @@ class AnytimeRRTStar:
             np.random.uniform(self.bounds[2], self.bounds[3])
         ])
 
-    # def plan_step(self):
-    #     rnd = self.sample()
-    #     tree = KDTree(self.nodes)
-    #     _, near_idx = tree.query(rnd)
-        
-    #     diff = rnd - self.nodes[near_idx]
-    #     dist = np.linalg.norm(diff)
-    #     if dist < 1e-6: return False
-        
-    #     new_node = self.nodes[near_idx] + (diff / dist) * self.step_size
-        
-    #     # Standard RRT: No search radius, no rewiring, just connect to nearest
-    #     if not self.is_collision(new_node) and not self.is_edge_collision(self.nodes[near_idx], new_node):
-    #         self.nodes.append(new_node)
-    #         self.parents[len(self.nodes)-1] = near_idx
-    #         return True
-    #     return False
-    
-    
-    
     def plan_step(self):
         rnd  = self.sample()
         tree = KDTree(self.nodes)
@@ -177,47 +147,6 @@ class AnytimeRRTStar:
                 self.parents[i] = new_idx
                 self.costs[i]   = new_c
         return True
-    
-    
-    # def plan_step(self):
-    #     rnd = self.sample()
-    #     tree = KDTree(self.nodes)
-    #     _, near_idx = tree.query(rnd)
-        
-    #     diff = rnd - self.nodes[near_idx]
-    #     dist = np.linalg.norm(diff)
-    #     if dist < 1e-6: return False
-        
-    #     new_node = self.nodes[near_idx] + (diff / dist) * self.step_size
-    #     if self.is_collision(new_node) or self.is_edge_collision(self.nodes[near_idx], new_node):
-    #         return False
-
-    #     # 1. Best Parent Search (Anytime Optimization)
-    #     indices = tree.query_ball_point(new_node, self.search_radius)
-    #     min_cost = self.costs[near_idx] + np.linalg.norm(new_node - self.nodes[near_idx])
-    #     best_p = near_idx
-
-    #     for i in indices:
-    #         if not self.is_edge_collision(self.nodes[i], new_node):
-    #             cost = self.costs[i] + np.linalg.norm(new_node - self.nodes[i])
-    #             if cost < min_cost:
-    #                 min_cost, best_p = cost, i
-
-    #     new_idx = len(self.nodes)
-    #     self.nodes.append(new_node)
-    #     self.parents[new_idx], self.costs[new_idx] = best_p, min_cost
-
-    #     # 2. Rewiring Step (Progressive Improvement)
-    #     for i in indices:
-    #         if not self.is_edge_collision(self.nodes[i], new_node):
-    #             new_c = self.costs[new_idx] + np.linalg.norm(self.nodes[i] - new_node)
-    #             if new_c < self.costs[i]:
-    #                 self.parents[i] = new_idx
-    #                 self.costs[i] = new_c
-    #     return True
-    
-    
-    
 
     def get_path(self):
         tree = KDTree(self.nodes)
@@ -513,38 +442,13 @@ def run_robot():
 
         # ── 3. Goal check ───────────────────────────────────────────────
         dist_to_goal = np.linalg.norm(np.array(planner.goal) - curr_p)
-        # if dist_to_goal < GOAL_TOLERANCE and not goal_reached:
-        #     print(f"\n{'*'*40}")
-        #     print(f"[GOAL] {name} REACHED GOAL at step {step_count}!")
-        #     print(f"  final pos : ({curr_p[0]:.3f},{curr_p[1]:.3f})")
-        #     print(f"  dist      : {dist_to_goal:.3f}m")
-        #     print(f"{'*'*40}")
-        #     goal_reached = True
-        
-        # ── 3. Goal check ───────────────────────────────────────────────
         if dist_to_goal < GOAL_TOLERANCE and not goal_reached:
             print(f"\n{'*'*40}")
             print(f"[GOAL] {name} REACHED GOAL at step {step_count}!")
+            print(f"  final pos : ({curr_p[0]:.3f},{curr_p[1]:.3f})")
+            print(f"  dist      : {dist_to_goal:.3f}m")
+            print(f"{'*'*40}")
             goal_reached = True
-            
-            # === ADD THE SECOND BLOCK HERE ===
-            duration = time.time() - start_time_total
-            avg_plan_time = np.mean(planning_times) if planning_times else 0
-            
-            print("\n" + "="*30)
-            print(f"FINAL METRICS FOR: {name}")
-            print(f"Algorithm: { 'RRT*'}")
-            print("="*30)
-            print(f"DATA_START")
-            print(f"Total_Distance_m: {total_distance:.4f}")
-            print(f"Total_Time_s: {duration:.4f}")
-            print(f"Avg_Planning_Latency_s: {avg_plan_time:.6f}")
-            print(f"Safety_Violations: {safety_violations}")
-            print(f"Nodes_Generated: {len(planner.nodes)}")
-            print(f"DATA_END")
-            print("="*30)
-            # =================================
-            
         if goal_reached:
             set_speeds(0.0, 0.0)
             continue
@@ -799,8 +703,6 @@ def run_robot():
                     set_speeds(0.0, K_ANG * error)
                 else:
                     set_speeds(min(safe_speed, 0.55), K_ANG * error)
-                    
-        
 
         # ── 11. Debug every 60 steps ────────────────────────────────────
         if step_count % 60 == 0:
@@ -819,9 +721,6 @@ def run_robot():
                   f"nodes={len(planner.nodes)} "
                   f"path={len(committed_path) if not escape_mode else 'N/A'} "
                   f"wp_idx={waypoint_idx}{escape_str}")
-            
-        
-        
 
 
 if __name__ == "__main__":

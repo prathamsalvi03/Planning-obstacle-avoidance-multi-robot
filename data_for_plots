@@ -1,0 +1,117 @@
+RRT
+[GOAL] Robot_2 REACHED GOAL at step 1072!
+  final pos : (-6.270,-0.828)
+  dist      : 0.320m
+****************************************
+[GOAL] Robot_1 REACHED GOAL at step 1134!
+  final pos : (6.234,-10.216)
+  dist      : 0.319m
+*******************************
+[GOAL] Robot_2 REACHED GOAL at step 241!
+==============================
+FINAL METRICS FOR: Robot_2
+
+==============================
+DATA_START
+Total_Distance_m: 0.0000
+Total_Time_s: 24.3982
+Avg_Planning_Latency_s: 0.000000
+Safety_Violations: 0
+Nodes_Generated: 881
+DATA_END
+==============================
+[GOAL] Robot_1 REACHED GOAL at step 360!
+==============================
+FINAL METRICS FOR: Robot_1
+Algorithm: RRT
+==============================
+DATA_START
+Total_Distance_m: 0.0000
+Total_Time_s: 27.4380
+Avg_Planning_Latency_s: 0.000000
+Safety_Violations: 0
+Nodes_Generated: 462
+DATA_END
+
+
+
+
+
+
+AnyRRT
+
+[GOAL] Robot_2 REACHED GOAL at step 182!
+  final pos : (-5.785,-1.248)
+  dist      : 0.328m
+****************************************
+****************************************
+[GOAL] Robot_1 REACHED GOAL at step 217!
+  final pos : (6.274,-10.190)
+  dist      : 0.334m
+****************************************
+[GOAL] Robot_1 REACHED GOAL at step 201!
+==============================
+FINAL METRICS FOR: Robot_1
+
+==============================
+DATA_START
+Total_Distance_m: 0.0000
+Total_Time_s: 13.6369
+Avg_Planning_Latency_s: 0.000000
+Safety_Violations: 0
+Nodes_Generated: 812
+DATA_END
+==============================
+****************************************
+[GOAL] Robot_2 REACHED GOAL at step 198!
+==============================
+FINAL METRICS FOR: Robot_2
+Algorithm: RRT*
+==============================
+DATA_START
+Total_Distance_m: 0.0000
+Total_Time_s: 13.8912
+Avg_Planning_Latency_s: 0.000000
+Safety_Violations: 0
+Nodes_Generated: 821
+DATA_END
+
+
+
+RRT *
+****************************************
+[GOAL] Robot_2 REACHED GOAL at step 309!
+  final pos : (-6.267,-0.814)
+  dist      : 0.326m
+****************************************
+****************************************
+[GOAL] Robot_1 REACHED GOAL at step 319!
+  final pos : (6.089,-10.328)
+  dist      : 0.340m
+*******************************
+GOAL] Robot_2 REACHED GOAL at step 214!
+==============================
+FINAL METRICS FOR: Robot_2
+Algorithm: RRT*
+==============================
+DATA_START
+Total_Distance_m: 0.0000
+Total_Time_s: 41.1309
+Avg_Planning_Latency_s: 0.000000
+Safety_Violations: 0
+Nodes_Generated: 893
+DATA_END
+
+==============================
+FINAL METRICS FOR: Robot_1
+Algorithm: RRT*
+==============================
+DATA_START
+Total_Distance_m: 0.0000
+Total_Time_s: 42.1531
+Avg_Planning_Latency_s: 0.000000
+Safety_Violations: 0
+Nodes_Generated: 892
+DATA_END
+
+
